@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    //all event listeners
+    // all event listeners
 
     $(document.body).on('click', '.play-week', function (e) {
         playNextWeek(e.target.attributes['data-week']['value']);
@@ -18,8 +18,7 @@ $(document).ready(function () {
         });
     });
 
-
-    //functions to do each event task
+    // functions to do each event task
 
     function refreshFixture() {
         $.get("/fixtures", function (data) {
@@ -29,18 +28,29 @@ $(document).ready(function () {
             showData.hide();
             $.each(data.weeks, function (i, week) {
                 var html = "";
-                html += "<tr><td colspan='3' class='fixtures-box_header'>" + week.title + " Week Matches</td></tr>";
+                html+=`
+                        <tr>
+                            <td colspan="3" class="text-center font-weight-bold bg-warning">
+                                ${week.title} Week Matches
+                            </td>
+                        </tr>
+                        <tr class="fixtures-box_header">
+                            <td>Home</td>
+                            <td>Goals</td>
+                            <td>Away</td>
+                        </tr>
+                `;
                 $.each(data.items[week.id], function (i, item) {
                     html += "<tr>";
-                    html += "<td class='make-center'><img width='30' height='30' src='/images/home_blue.png'><img width='60' height='60' src='/images/" + item.home_shirt + "'>" + item.home_team + "</td>";
+                    html += "<td class='make-center'>" + item.home_team + "</td>";
                     html += "<td class='make-center'>" + item.home_team_goal + " - " + item.away_team_goal + "</td>";
-                    html += "<td class='make-center'><img width='30' height='30' src='/images/airplane_blue.png'><img width='60' height='60' src='/images/" + item.away_shirt + "'>" + item.away_team + "</td>";
+                    html += "<td class='make-center'>" + item.away_team + "</td>";
                     html += "</tr>";
                 });
                 if (data.items[week.id][0].status == 0) {
                     html += "<tr>";
                     html += "<td colspan='5' class='weekly-simulate-button make-center'>";
-                    html += "<button  data-week='" + week.id + "' class='btn btn-primary play-week'> Simulate " + week.title + " Week  </button>";
+                    html += "<button  data-week='" + week.id + "' class='btn btn-success play-week'> Simulate " + week.title + " Week  </button>";
                     html += "</td>";
                     html += "</tr>"
                 }
@@ -62,18 +72,17 @@ $(document).ready(function () {
 
                 var html = "";
                 html += "<tr>";
-                html += "<td><img width='50' height='50' src='/images/" + item.logo + "' /> " + item.name + "</td>";
+                html += "<td>" + item.name + "</td>";
                 html += "<td>" + item.played + "</td>";
                 html += "<td>" + item.won + "</td>";
                 html += "<td>" + item.draw + "</td>";
                 html += "<td>" + item.lose + "</td>";
-                html += "<td>" + item.goal_drawn + "</td>";
+                html += "<td>" + item.goal_difference + "</td>";
                 html += "<td>" + item.points + "</td>";
                 html += "</tr>";
                 showData.append(html);
             });
             showData.show('slow');
-
         });
     }
 

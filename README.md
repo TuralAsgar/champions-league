@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://useinsider.com/" target="_blank"><img src="https://useinsider.com/assets/img/logo-old.png" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
@@ -7,60 +7,41 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Test task
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Requirements
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Insider Champions League: In this project, we expect you to complete a
+simulation. In this simulation, there will be a group of football teams and the
+simulation will show match results and the league table. Your task is to estimate the
+final league table.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+League Rules:
+- There will be four teams in the league (if you wish, you can choose teams that
+  have different strengths and you can determine the results of the matches
+  depending on the strengths of these selected teams).
+- Other rules in the league (scoring, points, goal difference, etc.) will be the
+  same as the rules of the [Premier League](https://www.premierleague.com/tables?co=1&se=489&ha=-1)
 
-## Learning Laravel
+![Premier League Table](/public/premier-league-table.png)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+As can be seen in Figure 1.a and Figure 2.a, each screen of the subsequent week
+will represent the league table and updated match status. Moving forward, both the
+point scores and the results of the matches will be represented by this screen. In
+addition, after the 4th week, your estimation will also be represented on this screen.
+Limitations / Requirements:
+- The Project needs to be completed using PHP (Projects that are completed in
+  JAVA, .net, Ruby, etc. will not be taken into consideration.).
+- Please use OOP.
+- You will be expected to use Javascript or its frameworks where applicable.
+- Please deploy your Project and share your project’s access link. (Github,
+  Bitbucket or Gitlab)
+- We expect you to send your code at the end of the project.
+  Extras (Including the following extras to your project will be regarded as a
+  strong plus)
+- After you click on the all-League Play button, play the matches automatically
+  until the end of the League and list the results of the matches by weeks.
+- To use modern Javascript frameworks.
+- Edit the results of the matches and calculate the edited results of the matches
+  based on the content of the modified standings.
+- Automated Unit Tests.

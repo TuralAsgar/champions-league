@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vahid
- * Date: 3/14/19
- * Time: 2:35 PM
- */
-
 namespace App\Repositories;
-
 
 use App\Models\Game;
 use App\Models\Team;
@@ -15,24 +7,14 @@ use App\Models\Week;
 
 class GameRepository
 {
-
-    protected $team;
-    protected $game;
-    protected $week;
-
-    public function __construct(Team $team, Game $game, Week $week)
+    public function __construct(protected Team $team, protected Game $game, protected Week $week)
     {
-        $this->team = $team;
-        $this->game = $game;
-        $this->week = $week;
     }
-
 
     public function getTeamsId()
     {
         return $this->team->pluck('id')->toArray();
     }
-
 
     public function getWeeksId()
     {
@@ -61,10 +43,6 @@ class GameRepository
         return $this->game->count() ? true : false;
     }
 
-
-    /**
-     * @return mixed
-     */
     public function getFixture()
     {
         return $this->game->select(
@@ -75,10 +53,6 @@ class GameRepository
             'games.away_team_goal',
             'week_id',
             'home.name as home_team',
-            'home.logo as home_logo',
-            'home.shirt as home_shirt',
-            'away.logo as away_logo',
-            'away.shirt as away_shirt',
             'away.name as away_team')
             ->join('weeks', 'weeks.id', '=', 'games.week_id')
             ->join('teams as home', 'home.id', '=', 'games.home_team')
@@ -87,13 +61,8 @@ class GameRepository
             ->get();
     }
 
-    /**
-     * @param $week_id
-     * @return mixed
-     */
     public function getFixtureByWeekId($week_id)
     {
-
         return $this->game->select(
             'games.id',
             'games.status',
@@ -102,8 +71,6 @@ class GameRepository
             'games.away_team_goal',
             'week_id',
             'weeks.title',
-            'home.logo as home_logo',
-            'away.logo as away_logo',
             'home.name as home_team',
             'away.name as away_team')
             ->join('weeks', 'weeks.id', '=', 'games.week_id')
@@ -114,15 +81,10 @@ class GameRepository
             ->get();
     }
 
-    /**
-     * @param $week
-     * @return mixed
-     */
     public function getGamesFromWeek($week)
     {
         return $this->game->where([['week_id', '=', $week], ['status', '=', 0]])->get();
     }
-
 
     public function getAllGames($status = 0)
     {
@@ -140,23 +102,17 @@ class GameRepository
             ->get();
     }
 
-    /**
-     * @param $homeScore
-     * @param $awayScore
-     * @param $home
-     * @param $away
-     */
     public function updateGameScore($homeScore, $awayScore, $home, $away)
     {
-        $goalDrawn = abs($awayScore - $homeScore);
+        $goalDifference = abs($awayScore - $homeScore);
 
         if ($homeScore > $awayScore) {
-            $home->won($goalDrawn);
-            $away->lose($goalDrawn);
+            $home->won($goalDifference);
+            $away->lose($goalDifference);
 
         } elseif ($awayScore > $homeScore) {
-            $away->won($goalDrawn);
-            $home->lose($goalDrawn);
+            $away->won($goalDifference);
+            $home->lose($goalDifference);
         } else {
             $home->draw();
             $away->draw();
@@ -166,10 +122,6 @@ class GameRepository
         $away->save();
     }
 
-
-    /**
-     *
-     */
     public function truncateGames()
     {
         $this->game->truncate();
@@ -182,5 +134,4 @@ class GameRepository
         $match->status = 1;
         return $match->save();
     }
-
 }

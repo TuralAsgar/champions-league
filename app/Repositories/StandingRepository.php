@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vahid
- * Date: 3/14/19
- * Time: 2:29 PM
- */
-
 namespace App\Repositories;
 
 use App\Models\Standing;
@@ -13,14 +6,8 @@ use App\Models\Team;
 
 class StandingRepository
 {
-
-    private $standing;
-    private $team;
-
-    public function __construct(Standing $standing, Team $team)
+    public function __construct(private Standing $standing, private Team $team)
     {
-        $this->standing = $standing;
-        $this->team = $team;
     }
 
     public function checkStanding()
@@ -37,13 +24,13 @@ class StandingRepository
         }
         foreach ($this->getTeams() as $value) {
             $data = [
-                'team_id'    => $value,
-                'played'     => 0,
-                'won'        => 0,
-                'lose'       => 0,
-                'draw'       => 0,
-                'goal_drawn' => 0,
-                'points'     => 0
+                'team_id' => $value,
+                'played' => 0,
+                'won' => 0,
+                'lose' => 0,
+                'draw' => 0,
+                'goal_difference' => 0,
+                'points' => 0
             ];
             $this->standing->create($data);
         }
@@ -59,7 +46,7 @@ class StandingRepository
     {
         return $this->team->leftJoin('standings', 'teams.id', '=', 'standings.team_id')
             ->orderBy('standings.points', 'DESC')
-            ->orderBy('standings.goal_drawn', 'DESC')
+            ->orderBy('standings.goal_difference', 'DESC')
             ->orderBy('standings.won', 'DESC')
             ->get();
     }

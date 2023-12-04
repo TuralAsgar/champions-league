@@ -1,17 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: vahid
- * Date: 3/15/19
- * Time: 8:33 PM
- */
-
 namespace App\Services\FixtureDraw;
-
 
 class HomeAndAwayDraw implements FixtureDrawInterface
 {
-
     protected $teams;
 
     public function __construct(array $teams)
@@ -22,18 +13,18 @@ class HomeAndAwayDraw implements FixtureDrawInterface
 
     public function getFixturesPlan()
     {
-        $numberOfWeeks          = $this->getNumberOfWeeks(count($this->teams));
+        $numberOfWeeks = $this->getNumberOfWeeks(count($this->teams));
         $numberOfWeeklyFixtures = $this->getNumberOfWeeklyFixtures(count($this->teams));
-        $allFixtures            = $this->makeAllFixtures();
+        $allFixtures = $this->makeAllFixtures();
         shuffle($allFixtures);
-        $weeklyFixtures         = $this->makeWeeklyFixtures($numberOfWeeks, $numberOfWeeklyFixtures, $allFixtures);
+        $weeklyFixtures = $this->makeWeeklyFixtures($numberOfWeeks, $numberOfWeeklyFixtures, $allFixtures);
         return $this->flatFixtures($weeklyFixtures);
     }
 
     public function flatFixtures($fixtures)
     {
         $flatFixturesArray = [];
-        $allWeekFixtures   = array_values($fixtures);
+        $allWeekFixtures = array_values($fixtures);
         foreach ($allWeekFixtures as $weekFixtures) {
             foreach ($weekFixtures as $fixture) {
                 $flatFixturesArray[] = $fixture;
@@ -45,11 +36,10 @@ class HomeAndAwayDraw implements FixtureDrawInterface
 
     public function makeWeeklyFixtures(int $numberOfWeeks, int $numberOfWeeklyFixtures, array $allFixtures)
     {
-
         $generatedWeeklyFixtures = [];
         //loop on weeks to generate all weeks
         for ($i = 1; $i <= $numberOfWeeks; $i++) {
-            //loop on each week number of match to generate them
+            //loop on each week number of game to generate them
             for ($j = 1; $j <= $numberOfWeeklyFixtures; $j++) {
 
                 foreach ($allFixtures as &$fixture) {
@@ -60,7 +50,7 @@ class HomeAndAwayDraw implements FixtureDrawInterface
 
                     $flag = false;
                     if (!count($generatedWeeklyFixtures) === 0 || array_key_exists($i, $generatedWeeklyFixtures)) {
-                        $flag = $this->isMatchDuplicatedInWeek($fixture, $generatedWeeklyFixtures[$i], $i);
+                        $flag = $this->isGameDuplicatedInWeek($fixture, $generatedWeeklyFixtures[$i], $i);
                     }
 
                     if ($flag) {
@@ -83,15 +73,15 @@ class HomeAndAwayDraw implements FixtureDrawInterface
         return $generatedWeeklyFixtures;
     }
 
-    public function isMatchDuplicatedInWeek($fixture, $allFixtures): bool
+    public function isGameDuplicatedInWeek($fixture, $allFixtures): bool
     {
         $response = false;
         foreach ($allFixtures as $f) {
             if (
-            (
-                ($fixture['home'] == $f['home'] || $fixture['home'] == $f['away']) ||
-                ($fixture['away'] == $f['away'] || $fixture['away'] == $f['home'])
-            )
+                (
+                    ($fixture['home'] == $f['home'] || $fixture['home'] == $f['away']) ||
+                    ($fixture['away'] == $f['away'] || $fixture['away'] == $f['home'])
+                )
             ) {
                 $response = true;
                 break;
@@ -133,5 +123,4 @@ class HomeAndAwayDraw implements FixtureDrawInterface
         }
         return $fixtures;
     }
-
 }
